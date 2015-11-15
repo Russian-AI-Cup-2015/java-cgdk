@@ -49,7 +49,7 @@ public final class RemoteProcessClient implements Closeable {
 
     public void writeProtocolVersion() throws IOException {
         writeEnum(MessageType.PROTOCOL_VERSION);
-        writeInt(1);
+        writeInt(2);
         flush();
     }
 
@@ -168,7 +168,7 @@ public final class RemoteProcessClient implements Closeable {
                 readLong(), readDouble(), readDouble(), readDouble(), readDouble(), readDouble(), readDouble(),
                 readDouble(), readDouble(), readDouble(), readLong(), readInt(), readBoolean(), readEnum(CarType.class),
                 readInt(), readInt(), readInt(), readInt(), readInt(), readInt(), readInt(), readInt(), readDouble(),
-                readDouble(), readDouble(), readInt(), readInt(), readBoolean()
+                readDouble(), readDouble(), readInt(), readInt(), readInt(), readBoolean()
         );
     }
 
@@ -259,11 +259,13 @@ public final class RemoteProcessClient implements Closeable {
     }
 
     private TileType[][] readTilesXY() throws IOException {
-        if (tilesXY != null) {
-            return tilesXY;
+        TileType[][] newTilesXY = readEnumArray2D(TileType.class);
+
+        if (newTilesXY != null && newTilesXY.length > 0) {
+            tilesXY = newTilesXY;
         }
 
-        return tilesXY = readEnumArray2D(TileType.class);
+        return tilesXY;
     }
 
     private int[][] readWaypoints() throws IOException {
