@@ -63,7 +63,7 @@ public abstract class Unit {
     }
 
     /**
-     * @return Возвращает Y-составляющую скорости объекта. Ось ординат направлена свеху вниз.
+     * @return Возвращает Y-составляющую скорости объекта. Ось ординат направлена сверху вниз.
      */
     public final double getSpeedY() {
         return speedY;
